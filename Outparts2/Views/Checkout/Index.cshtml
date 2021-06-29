@@ -1,0 +1,22 @@
+﻿@using Microsoft.Extensions.Options
+@inject IOptions<Outparts2.Data.StripeSettings> Stripe
+@{
+    Layout = "_Layout";
+}
+<div class="text-center">
+    <form asp-action="Processing" asp-controller="Checkout" method="post">
+        <article>
+            <label>Amount: $ @(String.Format("{0:#.00}", Math.Round(@ViewBag.DollarAmount, 2)))</label>
+        </article>
+        <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                data-key="@Stripe.Value.PublishableKey"
+                data-amount="@(String.Format("{0:#.00}", ViewBag.Total))"
+                data-name="Checkout"
+                data-description="Outparts.com"
+                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                data-locale="en"
+                data-zip-code="true">
+
+        </script>
+    </form>
+</div>
